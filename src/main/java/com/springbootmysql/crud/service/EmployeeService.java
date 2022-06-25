@@ -9,6 +9,7 @@ public interface EmployeeService {
 	public ResponseBean getAllEmployee();
 	public ResponseBean findEmployeeById(Long id);
 	public ResponseBean deleteEmployeeById(Long id);
+	public ResponseBean findByDepartment(String department);
 
 
 }

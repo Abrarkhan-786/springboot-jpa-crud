@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.springbootmysql.crud.bean.EmployeeBean;
 import com.springbootmysql.crud.bean.ResponseBean;
 import com.springbootmysql.crud.constant.Status;
 import com.springbootmysql.crud.model.Employee;
@@ -118,6 +119,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return ResponseBean.builder().status(Status.SUCCESS).message("Record Deleted Sccessfully!").build();
 
 		} catch (Exception e) {
+			return ResponseBean.builder().status(Status.FAIL).message("Something went wrong").build();
+		}
+	}
+
+	@Override
+	public ResponseBean findByDepartment(String department) {
+		try {
+			List<EmployeeBean> empolyeeList = employeeDao.findByDepartment(department);
+			if (empolyeeList != null  && empolyeeList.size()>0) {
+				return ResponseBean.builder().status(Status.SUCCESS).response(empolyeeList).build();
+
+			}
+
+			return ResponseBean.builder().status(Status.FAIL).message("Record Not Found").build();
+
+		} catch (Exception e) {
+           e.printStackTrace();
 			return ResponseBean.builder().status(Status.FAIL).message("Something went wrong").build();
 		}
 	}
