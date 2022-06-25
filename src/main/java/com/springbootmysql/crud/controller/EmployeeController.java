@@ -36,13 +36,13 @@ public class EmployeeController {
 		return employeeService.updateEmployee(employee);
 	}
 
-	@RequestMapping(value="/findEmployeeById/{ID}")
+	@RequestMapping(path="/findEmployeeById/{ID}")
 	@ResponseBody
 	public ResponseBean findEmployeeById(@PathVariable("ID") Long id) {
 		return employeeService.findEmployeeById(id);
 	}
 
-	@RequestMapping(path="/getAllEmployeeList")
+	@RequestMapping(value="/getAllEmployeeList")
 	@ResponseBody
 	public ResponseBean getAllEmployeeList() {
 		return employeeService.getAllEmployee();
@@ -54,9 +54,9 @@ public class EmployeeController {
 		return employeeService.deleteEmployeeById(id);
 	}
 	
-	@RequestMapping(path="/findByDepartment")
-//	@ResponseBody
-	public ResponseBean findByDepartment(@RequestParam String department) {
+	@RequestMapping(value="/findByDepartment")
+    @ResponseBody
+	public ResponseBean findByDepartment(@RequestParam("department") String department) {
 		return employeeService.findByDepartment(department);
 	}
 
