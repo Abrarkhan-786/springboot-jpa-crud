@@ -55,7 +55,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(path="/findByDepartment")
-	@ResponseBody
+//	@ResponseBody
 	public ResponseBean findByDepartment(@RequestParam String department) {
 		return employeeService.findByDepartment(department);
 	}
