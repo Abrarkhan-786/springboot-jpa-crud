@@ -59,5 +59,11 @@ public class EmployeeController {
 	public ResponseBean findByDepartment(@RequestParam("department") String department) {
 		return employeeService.findByDepartment(department);
 	}
+	
+	@RequestMapping(value="/increaseSalaryByTenPercentageHavingDepartmentCricketElseFivePercentage",method = RequestMethod.GET)
+	public ResponseBean increaseSalaryByTenPercentageHavingDepartmentCricketElseFivePercentage() {
+		return employeeService.increaseSalaryByTenPercentageHavingDepartmentCricketElseFivePercentage();
+	}
+	
 
 }

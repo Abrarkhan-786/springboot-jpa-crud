@@ -1,7 +1,11 @@
 package com.springbootmysql.crud.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -56,7 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 
 			Employee employeeBean = employeeDao.save(employee);
-			return ResponseBean.builder().status(Status.SUCCESS).message("Record Addee Succesfully")
+			return ResponseBean.builder().status(Status.SUCCESS).message("Record Added Succesfully")
 					.response(employeeBean).build();
 
 		} catch (Exception e) {
@@ -139,5 +143,39 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return ResponseBean.builder().status(Status.FAIL).message("Something went wrong").build();
 		}
 	}
+	
+	@Transactional
+	   public ResponseBean  increaseSalaryByTenPercentageHavingDepartmentCricketElseFivePercentage() {
+			try {
+				List<Employee> empolyeeList = employeeDao.findAll();
+				List<Employee> updatedList=new ArrayList<Employee>();
+				if (empolyeeList != null  && empolyeeList.size()>0) {
+				List<Employee> newEmployeeList = empolyeeList.stream().map((e)->{
+						if(e.getDepartment().equalsIgnoreCase("cricket")) {
+							e.setSalary(e.getSalary()*1.1);
+						}else {
+							e.setSalary(e.getSalary()*1.05);
+						}
+						return e;
+					}).collect(Collectors.toList());
+				
+					for (Employee employee : newEmployeeList) {
+						  Employee save = employeeDao.save(employee);
+						  updatedList.add(save);
+					}
+					
+					return ResponseBean.builder().status(Status.SUCCESS).response(updatedList).build();
+
+				}
+
+				return ResponseBean.builder().status(Status.FAIL).message("Record Not Found").build();
+
+			} catch (Exception e) {
+
+				return ResponseBean.builder().status(Status.FAIL).message("Something went wrong").build();
+			}
+		
+		  
+	  }
 
 }
