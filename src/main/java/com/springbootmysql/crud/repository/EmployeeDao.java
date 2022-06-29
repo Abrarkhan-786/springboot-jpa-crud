@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.springbootmysql.crud.bean.EmployeeBean;
@@ -18,4 +19,12 @@ public interface EmployeeDao extends JpaRepository<Employee, Long> {
 			+ "where e.department=?1 "
 			+ "order by e.id asc")
 	 List<EmployeeBean> findByDepartment(String department);
+	
+	@Query("Select" 
+			+" e "
+			+ "from Employee e  "
+			+ "where e.email=:email")
+	public Employee findEmployeeByEmail(@Param("email")  String email);
+	
+	
 }

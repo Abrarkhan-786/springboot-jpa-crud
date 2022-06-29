@@ -17,6 +17,7 @@ import com.springbootmysql.crud.constant.Status;
 import com.springbootmysql.crud.model.Employee;
 import com.springbootmysql.crud.repository.EmployeeDao;
 import com.springbootmysql.crud.service.EmployeeService;
+import com.springbootmysql.crud.utility.EmployeeNotFoundException;
 
 @Service
 @Qualifier("employeeServiceImpl")
@@ -24,6 +25,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeDao employeeDao;
+	
+
+	public EmployeeServiceImpl(EmployeeDao employeeDao) {
+		this.employeeDao = employeeDao;
+	}
 
 	@Override
 	public ResponseBean saveEmployee(Employee employee) {
@@ -177,5 +183,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		  
 	  }
+
+	@Override
+	public Employee findEmployeeByEmail(String email) {
+		 Employee employee=employeeDao.findEmployeeByEmail(email);
+			if (employee == null) {
+				  throw new EmployeeNotFoundException("Employee Not Found") ;
+			}
+			return  employee;
+	}
 
 }

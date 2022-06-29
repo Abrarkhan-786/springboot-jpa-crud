@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.contains;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.springbootmysql.crud.service.EmployeeService;
 @SpringBootTest(classes = ApplicationStarter.class)
 class SpringbootMysqlCrudApplicationTests {
 
+	@Ignore
 	@Test
 	void contextLoads() {
 	}
@@ -37,6 +39,7 @@ class SpringbootMysqlCrudApplicationTests {
 		
 	}
 	
+	@Ignore
 	@Disabled
 	@Test
 	void getAllEmployee() {

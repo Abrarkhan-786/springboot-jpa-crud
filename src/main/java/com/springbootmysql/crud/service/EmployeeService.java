@@ -11,6 +11,6 @@ public interface EmployeeService {
 	public ResponseBean deleteEmployeeById(Long id);
 	public ResponseBean findByDepartment(String department);
 	public ResponseBean increaseSalaryByTenPercentageHavingDepartmentCricketElseFivePercentage();
-
+	public Employee findEmployeeByEmail(String email);
 
 }
