@@ -1,5 +1,9 @@
 package com.springbootmysql.crud.controller;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
@@ -8,7 +12,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +26,7 @@ import com.springbootmysql.crud.bean.ResponseBean;
 import com.springbootmysql.crud.model.Attachment;
 import com.springbootmysql.crud.service.AttachmentService;
 
-@CrossOrigin(allowCredentials="false")
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value="/attachment")
 public class AttachmentController {
@@ -47,5 +53,30 @@ public class AttachmentController {
                 + "\"")
                 .body(new ByteArrayResource(attachment.getData()));
 	}
-
+	
+	@PostMapping("/uploadMultipleFiles")
+	public List<ResponseBean> uploadMulitpleFiles(@RequestParam("files") MultipartFile[] files) {
+		return Arrays.asList(files).stream().map(file -> uploadAttachment(file)).collect(Collectors.toList());
+	}
+	
+	
+	@GetMapping("/getAllAttachment")
+	@ResponseBody
+	public ResponseBean getAllAttachment() {
+		return attachmentService.getAllAttachment();
+	}
+	
+	@GetMapping("/deleteAttachment/{ID}")
+	@ResponseBody
+	public ResponseBean deleteAttachment(@PathVariable("ID") String id) {
+		return attachmentService.deleteAttachment(id);
+	}
+	
+	@GetMapping("/getAttachment/{ID}")
+	@ResponseBody
+	public ResponseBean getAttachment(@PathVariable("ID") String id) {
+		return attachmentService.downloadAttachment(id);
+	}
 }
+
+
