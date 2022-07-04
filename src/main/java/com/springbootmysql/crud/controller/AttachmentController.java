@@ -4,11 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,7 +46,7 @@ public class AttachmentController {
 	
 	@RequestMapping(value="/downloadAttachment/{ID}" ,method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Resource> downloadAttachment(@PathVariable("ID") String id) {
+	public ResponseEntity<byte []> downloadAttachment(@PathVariable("ID") String id) {
 		Attachment attachment= (Attachment)attachmentService.downloadAttachment(id).getResponse();
 		
 				return ResponseEntity.ok()
@@ -51,7 +54,7 @@ public class AttachmentController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + attachment.getFileName()
                 + "\"")
-                .body(new ByteArrayResource(attachment.getData()));
+                .body(attachment.getData());
 	}
 	
 	@PostMapping("/uploadMultipleFiles")
@@ -75,7 +78,21 @@ public class AttachmentController {
 	@GetMapping("/getAttachment/{ID}")
 	@ResponseBody
 	public ResponseBean getAttachment(@PathVariable("ID") String id) {
+		Attachment attachment =(Attachment)attachmentService.downloadAttachment(id).getResponse();
+		attachment.setByteArrayResource(new ByteArrayResource(attachment.getData()));
 		return attachmentService.downloadAttachment(id);
+	}
+	
+	@GetMapping("/getFile/{ID}")
+	public ResponseEntity<Resource> downloadFile(@PathVariable("ID") String id,HttpServletResponse response) {
+		Attachment attachment =(Attachment)attachmentService.downloadAttachment(id).getResponse();
+		attachment.setByteArrayResource(new ByteArrayResource(attachment.getData()));
+		HttpHeaders respHeaders = new HttpHeaders();
+		respHeaders.setContentLength(attachment.getData().length);
+ 		respHeaders.setContentType(MediaType.parseMediaType(attachment.getFileType()));
+		respHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + attachment.getFileName());
+		
+		return new ResponseEntity<Resource>(attachment.getByteArrayResource(), respHeaders, HttpStatus.OK);
 	}
 }
 

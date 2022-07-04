@@ -9,6 +9,7 @@ import javax.persistence.Lob;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.core.io.ByteArrayResource;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,8 @@ public class Attachment implements Serializable {
     @Transient
     private String downloadURL;
 
+    @Transient
+    private ByteArrayResource byteArrayResource;
     
 
 }

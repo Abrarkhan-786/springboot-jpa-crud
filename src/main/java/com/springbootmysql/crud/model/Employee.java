@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Employee implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private long id;
 	
 	@Column(name="employee_name")
 	@NotNull
@@ -41,6 +41,6 @@ public class Employee implements Serializable {
 	@NotNull
 	private String  department;
 	
-	private boolean isSenior;
+	private boolean senior;
 	
 }

@@ -1,4 +1,4 @@
-package com.springbootmysql.crud.utility;
+package com.springbootmysql.crud.utility.exception;
 
 public class EmployeeNotFoundException extends RuntimeException{
 	public EmployeeNotFoundException(String s) {

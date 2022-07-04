@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -23,6 +24,7 @@ public class EmployeeDaoTest {
 	@Autowired
 	private EmployeeDao employeeDao;
 	
+	@Disabled
 	@Ignore
 	@Test
 	public void findByDepartment() {

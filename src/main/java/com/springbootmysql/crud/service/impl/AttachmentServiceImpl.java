@@ -15,11 +15,12 @@ import com.springbootmysql.crud.constant.Status;
 import com.springbootmysql.crud.model.Attachment;
 import com.springbootmysql.crud.repository.AttachmentDao;
 import com.springbootmysql.crud.service.AttachmentService;
+import com.springbootmysql.crud.service.common.impl.BaseServiceImpl;
 
 
 @Service
 @Qualifier("attachmentServiceImpl")
-public class AttachmentServiceImpl implements AttachmentService {
+public class AttachmentServiceImpl extends BaseServiceImpl implements AttachmentService {
 
 	@Autowired
 	private AttachmentDao attachmentDao;
