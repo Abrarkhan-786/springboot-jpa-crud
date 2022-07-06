@@ -62,7 +62,7 @@ public class EmployeeServiceImpl extends BaseServiceImpl implements EmployeeServ
 			if (employee == null) {
 				return ResponseBean.builder().status(Status.FAIL).message("Data Is Null").build();
 			}
-
+			
 			Employee employeeBean = employeeDao.save(employee);
 			return ResponseBean.builder().status(Status.SUCCESS).message("Record Added Succesfully")
 					.response(employeeBean).build();
