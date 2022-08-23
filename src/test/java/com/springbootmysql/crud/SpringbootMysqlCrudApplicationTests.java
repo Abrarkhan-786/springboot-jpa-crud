@@ -39,18 +39,18 @@ class SpringbootMysqlCrudApplicationTests {
 		
 	}
 	
-	@Ignore
-	@Disabled
-	@Test
-	void getAllEmployee() {
-		List<Employee> allEmployee =(List<Employee>) this.employeeService.getAllEmployee().getResponse();
-		//System.out.println(allEmployee);
-		//assertThat(allEmployee).extracting(e->e.getName()).contains("siraj","dhoni");
-		//assertThat(allEmployee).hasSize(8);
-		//assertThat(allEmployee.get(3).getName()).isEqualTo("ponting");
-		//assertThat(allEmployee).hasSize(8).extracting(Employee::getName).doesNotContain("abrar").contains("dhoni");
-		assertThat(allEmployee.get(0)).matches(e->e.getSalary()>7000);
-		
-	}
+	//@Ignore
+	//@Disabled
+	//@Test
+  //	void getAllEmployee() {
+//		List<Employee> allEmployee =(List<Employee>) this.employeeService.getAllEmployee().getResponse();
+//		//System.out.println(allEmployee);
+//		//assertThat(allEmployee).extracting(e->e.getName()).contains("siraj","dhoni");
+//		//assertThat(allEmployee).hasSize(8);
+//		//assertThat(allEmployee.get(3).getName()).isEqualTo("ponting");
+//		//assertThat(allEmployee).hasSize(8).extracting(Employee::getName).doesNotContain("abrar").contains("dhoni");
+//		assertThat(allEmployee.get(0)).matches(e->e.getSalary()>7000);
+//		
+//	}
 
 }

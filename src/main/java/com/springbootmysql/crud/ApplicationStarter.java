@@ -1,9 +1,14 @@
 package com.springbootmysql.crud;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication()
+@SpringBootApplication
 //@Configuration
 //@EnableScheduling
 //@EnableTransactionManagement
@@ -12,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@EnableJpaRepositories(basePackages = {"com.springbootmysql.crud.repository"})
 //@EnableJpaAuditing
 public class ApplicationStarter {
-	
+	private static Logger LOGGER = LogManager.getLogger(ApplicationStarter.class);
 	public static boolean findPalindrome(String word){
 		int i1=0;
 		int i2= word.length()-1;
@@ -41,6 +46,25 @@ public class ApplicationStarter {
 			}
 			
 		}
+	}
+	
+	
+	@Bean
+	protected  WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry
+				.addMapping("/**")
+				.allowedMethods("GET", "POST")
+				.allowedOrigins("*")
+                .allowedHeaders("*");
+				//.exposedHeaders("Authorization")
+				//.allowCredentials(true)
+               // .maxAge(4800L);
+				LOGGER.info(registry.toString());
+			}
+		};
 	}
 
 }
